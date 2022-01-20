@@ -80,6 +80,7 @@ case $1 in
     --node-label bosh.io/bootstrap=<%= spec.bootstrap %>  \
     --node-label bosh.io/index=<%= spec.index %>  \
     --node-label bosh.io/address=<%= spec.ip %>  \
+    --node-label node-role.kubernetes.io/worker=worker \
     --node-label topology.kubernetes.io/zone=<%= spec.az %> \
       $FLAGS \
       $servers \
