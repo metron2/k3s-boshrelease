@@ -11,7 +11,7 @@ case $1 in
     mkdir -p $RUN_DIR $LOG_DIR
     chown -R vcap:vcap $RUN_DIR $LOG_DIR
     
-    export K3S_NODE_NAME=<%= spec.name %>-<%= spec.index %>
+    export K3S_NODE_NAME=<%= spec.ip %>
     
     <% if_p('k3s.datastore-endpoint') do |value| %>
     export K3S_DATASTORE_ENDPOINT=<%= p('k3s.datastore-endpoint') %>
@@ -119,7 +119,7 @@ case $1 in
     --tls-san=<%= spec.networks.send(spec.networks.methods(false).first).dns_record_name %> \
     --node-external-ip=<%= spec.ip %> \
     --node-label bosh.io/az=<%= spec.az %> \
-    --node-label bosh.io/name=<%= spec.name %>  \
+    --node-label bosh.io/name=$HOSTNAME
     --node-label bosh.io/bootstrap=<%= spec.bootstrap %>  \
     --node-label bosh.io/index=<%= spec.index %>  \
     --node-label bosh.io/address=<%= spec.address %>  \

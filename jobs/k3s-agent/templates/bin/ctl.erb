@@ -22,7 +22,7 @@ case $1 in
 <% end %>
 
 
-    export K3S_NODE_NAME=<%= spec.name %>-<%= spec.index %>
+    export K3S_NODE_NAME=<%= spec.ip %>
     
     <% if_p('k3s.token-file-content') do |value| %>
     export K3S_TOKEN_FILE=/var/vcap/jobs/k3s-agent/config/token.csv
@@ -76,7 +76,7 @@ case $1 in
     --node-ip=<%= spec.ip %> \
     --node-external-ip=<%= spec.ip != spec.networks.marshal_dump.values.first.ip ? spec.networks.marshal_dump.values.first.ip : spec.networks.marshal_dump.values.last.ip %> \
     --node-label bosh.io/az=<%= spec.az %> \
-    --node-label bosh.io/name=<%= spec.name %>  \
+    --node-label bosh.io/name=$HOSTNAME \
     --node-label bosh.io/bootstrap=<%= spec.bootstrap %>  \
     --node-label bosh.io/index=<%= spec.index %>  \
     --node-label bosh.io/address=<%= spec.address %>  \
